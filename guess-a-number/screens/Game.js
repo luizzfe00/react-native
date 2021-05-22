@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 
+import DefaultStyles from '../utils/styles';
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 
@@ -56,7 +57,7 @@ const Game = (props) => {
 
   return (
     <View style={styles.screen}>
-      <Text>Opponent's Guess</Text>
+      <Text style={DefaultStyles.titleText}>Opponent's Guess</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.cardContainer}>
         <Button title="LOWER" color="red" onPress={nextGuessHandler.bind(this, GUESS_OPT.LOWER)} />

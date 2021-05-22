@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+
+import DefaultStyles from '../utils/styles';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
@@ -38,7 +40,7 @@ const StartGame = (props) => {
   if (confirmed) {
     confirmedOutput = (
       <Card>
-        <Text>You selected</Text>
+        <Text style={DefaultStyles.titleText} >You selected</Text>
         <NumberContainer>{selectedNumber}</NumberContainer>
         <Button title="START GAME" onPress={() => props.onStart(selectedNumber)}/>
       </Card>
@@ -48,7 +50,7 @@ const StartGame = (props) => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.screen}>
-        <Text style={styles.title}>Start New Game!</Text>
+        <Text style={DefaultStyles.titleText}>Start New Game!</Text>
         <Card style={styles.inputContainer}>
           <Text>Select a Number</Text>
           <Input 
