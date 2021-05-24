@@ -5,6 +5,7 @@ import DefaultStyles from '../utils/styles';
 import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
+import MainButton from '../components/MainButton';
 
 const StartGame = (props) => {
   const [value, setValue] = useState('');
@@ -42,7 +43,7 @@ const StartGame = (props) => {
       <Card>
         <Text style={DefaultStyles.titleText} >You selected</Text>
         <NumberContainer>{selectedNumber}</NumberContainer>
-        <Button title="START GAME" onPress={() => props.onStart(selectedNumber)}/>
+        <MainButton onClick={() => props.onStart(selectedNumber)}>Start Game</MainButton>
       </Card>
     )
   }
@@ -65,10 +66,22 @@ const StartGame = (props) => {
           />
           <View style={styles.buttonContainer}>
             <View style={styles.button}>
-              <Button title="Reset" color="red" onPress={() => handleReset()}/>
+              <MainButton
+                buttonContainer={DefaultStyles.mainButtonDanger} 
+                buttonText={styles.buttonText}
+                onCLick={() => handleReset()}
+              >
+                Reset
+              </MainButton>
             </View>
             <View style={styles.button}>
-              <Button title="Confirm"  onPress={() => handleConfirm()} />
+              <MainButton 
+                buttonContainer={DefaultStyles.mainButtonConfirm}
+                buttonText={styles.buttonText}
+                onClick={() => handleConfirm()}
+              >
+                Confirm
+              </MainButton>
             </View>
           </View>
         </Card>
@@ -81,32 +94,38 @@ const StartGame = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 10,
+    paddingHorizontal: 4,
+    paddingVertical: 10,
     alignItems: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
+    justifyContent: 'center',
   },
   title: {
     fontSize: 20,
     marginVertical: 10,
   },
   inputContainer: {
-    width: 300,
-    maxWidth: '80%',
+    width: 400,
+    maxWidth: '90%',
     alignItems: 'center',
     marginBottom: 10,
   },
   button: {
-    width: 100,
+    width: 124,
+    marginTop: 10,
+    marginLeft: 6,
   },
   input: {
     width: 50,
     textAlign: 'center',
   },
+  buttonText: {
+    fontSize: 16,
+    textAlign: 'center'
+  }
 })
 
 export default StartGame;

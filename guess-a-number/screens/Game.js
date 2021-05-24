@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 import DefaultStyles from '../utils/styles';
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import MainButton from '../components/MainButton';
 
 const generateRandom = (min, max, exclude) => {
   min = Math.ceil(min);
@@ -60,8 +62,18 @@ const Game = (props) => {
       <Text style={DefaultStyles.titleText}>Opponent's Guess</Text>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card style={styles.cardContainer}>
-        <Button title="LOWER" color="red" onPress={nextGuessHandler.bind(this, GUESS_OPT.LOWER)} />
-        <Button title="GREATER" onPress={nextGuessHandler.bind(this, GUESS_OPT.HIGHER)} />
+        <MainButton 
+          buttonContainer={{...DefaultStyles.mainButtonDanger, ...styles.buttons}}
+          onClick={nextGuessHandler.bind(this, GUESS_OPT.LOWER)}
+        >
+          <Ionicons name="md-remove" size={24} color="white"/>
+        </MainButton>
+        <MainButton 
+          buttonContainer={{...DefaultStyles.mainButtonConfirm, ...styles.buttons}}
+          onClick={nextGuessHandler.bind(this, GUESS_OPT.HIGHER)}
+        >
+          <Ionicons name="md-add" size={24} color="white" />
+        </MainButton>
       </Card>
     </View>
   )
@@ -77,8 +89,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 20,
-    width: 300,
-    maxWidth: '80%',
+    width: 350,
+    maxWidth: '90%',
+  },
+  buttons: {
+    borderRadius: 30,
+    width: 80,
   }
 });
 

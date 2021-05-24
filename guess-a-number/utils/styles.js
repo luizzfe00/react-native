@@ -8,5 +8,11 @@ export default StyleSheet.create({
     fontFamily: 'open-sans-bold',
     fontSize: 18,
     marginVertical: 10,
+  },
+  mainButtonConfirm: {
+    backgroundColor: '#0d6efd',
+  },
+  mainButtonDanger: {
+    backgroundColor: '#dc3545',
   }
 })
