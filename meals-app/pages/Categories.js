@@ -1,25 +1,51 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+
+import { colors } from '../styles';
+
+import { CATEGORIES } from '../data/dummy-data';
 
 const Categories = (props) => {
+  const renderItem = (itemData) => {
+    return (
+      <TouchableOpacity 
+        style={styles.itemContainer}
+        onPress={() => 
+          props.navigation.navigate(
+            { 
+              routeName: 'CategoryMeals', 
+              params: {
+                categoryId: itemData.item.id
+              }
+            })}
+      >
+      <View>
+        <Text>{itemData.item.title}</Text>
+      </View>
+      </TouchableOpacity>
+    )
+  }
+
   return (
-    <View style={styles.screen}>
-      <Text>Categories</Text>
-      <Button 
-        title="Ir para pratos" 
-        onPress={() => {
-          props.navigation.navigate({ routeName: 'Pratos' });
-        }} 
-      />
-    </View>
+    <FlatList 
+      data={CATEGORIES} 
+      renderItem={renderItem} 
+      numColumns={2} 
+    />
   )
 }
 
+Categories.navigationOptions = {
+  headerTitle: 'Categorias',
+}
+
 const styles = StyleSheet.create({
-  screen: {
+  itemContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    margin: 15,
+    height: 120,
+    borderWidth: 1,
   }
 });
 
