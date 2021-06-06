@@ -1,52 +1,57 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 
-import { colors } from '../styles';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+
+import CategoryGridItem from '../components/CategoryGridItem';
+import HeaderButton from '../components/HeaderButton';
 
 import { CATEGORIES } from '../data/dummy-data';
 
 const Categories = (props) => {
-  const renderItem = (itemData) => {
+
+  const renderGridItem = (itemData) => {
     return (
-      <TouchableOpacity 
-        style={styles.itemContainer}
-        onPress={() => 
+      <CategoryGridItem 
+        data={itemData.item} 
+        onSelect={() => 
           props.navigation.navigate(
             { 
               routeName: 'CategoryMeals', 
               params: {
                 categoryId: itemData.item.id
               }
-            })}
-      >
-      <View>
-        <Text>{itemData.item.title}</Text>
-      </View>
-      </TouchableOpacity>
-    )
+            })
+          }
+      />)
   }
 
   return (
     <FlatList 
       data={CATEGORIES} 
-      renderItem={renderItem} 
+      renderItem={renderGridItem} 
       numColumns={2} 
     />
   )
 }
 
-Categories.navigationOptions = {
-  headerTitle: 'Categorias',
+Categories.navigationOptions = (navData) => {
+  return {
+    headerLeft: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item 
+          title="Menu" 
+          iconName="ios-menu" 
+          onPress={() => {
+            navData.navigation.toggleDrawer();
+          }} 
+        />
+      </HeaderButtons>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-  itemContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    margin: 15,
-    height: 120,
-    borderWidth: 1,
-  }
 });
 
 export default Categories;

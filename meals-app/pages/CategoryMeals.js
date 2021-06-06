@@ -1,25 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
-import { colors } from '../styles'
-import { CATEGORIES } from '../data/dummy-data'
+import MealList from '../components/MealList'
+
+import { CATEGORIES } from '../data/meals-data'
 
 const CategoryMeal = (props) => {
   const categoryId = props.navigation.getParam('categoryId')
-  const selectedCategory = CATEGORIES.find((item) => item.id === categoryId)
+
+  const availableMeals = useSelector((state) => state.meals.filteredMeals);
+
+  const displayedMeals = availableMeals.filter((meal) => meal.category.indexOf(categoryId) >= 0);
+
+  if (displayedMeals.length === 0) {
+    return (
+      <View style={styles.fallback}>
+        <Text>No meals found, maybe check your filters</Text>
+      </View>
+    )
+  }
 
   return (
-    <View style={styles.screen}>
-      <Text>{selectedCategory.title || 'Prato'}</Text>
-      <Button 
-        title="Ir para Detalhes" 
-        onPress={() => props.navigation.navigate({ routeName: 'MealDetails' })} 
-      />
-      <Button
-        title="Back"
-        onPress={() => props.navigation.goBack()}
-      />
-    </View>
+    <MealList mealData={displayedMeals} nav={props.navigation} />
   )
 }
 
@@ -28,16 +31,16 @@ CategoryMeal.navigationOptions = (navigationData) => {
   const selectedCategory = CATEGORIES.find((item) => item.id === categoryId)
 
   return {
-    headerTitle: selectedCategory.title,
+    headerTitle: selectedCategory.title
   }
 }
 
+export default CategoryMeal;
+
 const styles = StyleSheet.create({
-  screen: {
+  fallback: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   }
-});
-
-export default CategoryMeal;
+})
