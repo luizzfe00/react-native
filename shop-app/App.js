@@ -7,10 +7,12 @@ import * as Font from 'expo-font';
 import ShopNavigator from './nav/ShopNavigation';
 import productsReducer from './store/reducers/product';
 import cartReducer from './store/reducers/cart';
+import orderReducer from './store/reducers/orders';
 
 const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
+  orders: orderReducer,
 });
 
 const store = createStore(rootReducer);

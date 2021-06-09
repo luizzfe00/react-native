@@ -10,9 +10,11 @@ import {
   Platform
 } from 'react-native'
 
-import colors from '../../styles/colors';
 
 const ProductItem = (props) => {
+  const { onSelect, product, children } = props;
+
+  const {price} = product;
   let TouchableComp = TouchableOpacity;
 
   if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -22,17 +24,18 @@ const ProductItem = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.touchable}>
-        <TouchableComp onPress={props.onViewDetail} useForeground>
+        <TouchableComp onPress={onSelect} useForeground>
           <View>
             <View style={styles.imageContainer}>
-              <Image style={styles.image} source={{ uri: props.product.imageUrl}} />
+              <Image style={styles.image} source={{ uri: product.imageUrl}} />
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.title}>{props.product.title}</Text>
-              <Text style={styles.price}>${props.product.price.toFixed(2)}</Text>
+              <Text style={styles.title}>{product.title}</Text>
+              <Text style={styles.price}>${product.price.toFixed(2)}</Text>
             </View>
             <View style={styles.buttonContainer}>
-              <Button 
+              {children}
+              {/* <Button 
                 title="View Details" 
                 onPress={props.onViewDetail} 
                 color={colors.primary}
@@ -41,7 +44,7 @@ const ProductItem = (props) => {
                 title="To Cart" 
                 onPress={props.onAddToCart} 
                 color={colors.lightGreen}
-              />
+              /> */}
             </View>
           </View>
         </TouchableComp>
@@ -82,12 +85,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'center',
-    height: '25%',
+    height: '23%',
     paddingHorizontal: 26,
   },
   textContainer: {
     alignItems: 'center',
-    height: '15%',
+    height: '17%',
     padding: 10,
   },
   imageContainer: {
