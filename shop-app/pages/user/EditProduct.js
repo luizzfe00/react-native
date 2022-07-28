@@ -38,16 +38,31 @@ const EditProduct = (props) => {
       <View style={styles.formContainer}>
         <View style={styles.formControl}>
           <Text style={styles.label}>Title</Text>
-          <TextInput style={StyleSheet.input} value={data.title} onChangeText={(text) => setData({ ...data, title: text })} />
+          <TextInput  
+            style={StyleSheet.input} 
+            value={data.title} 
+            onChangeText={(text) => setData({ ...data, title: text })} 
+            autoCapitalize="sentences"
+            autoCorrect
+          />
         </View>
         <View style={styles.formControl}>
           <Text style={styles.label}>Image URL</Text>
-          <TextInput style={StyleSheet.input} value={data.imageUrl} onChangeText={(text) => setData({ ...data, imageUrl: text })} />
+          <TextInput 
+            style={StyleSheet.input} 
+            value={data.imageUrl} 
+            onChangeText={(text) => setData({ ...data, imageUrl: text })} 
+          />
         </View>
         {!selectedProduct && (
           <View style={styles.formControl}>
             <Text style={styles.label}>Price</Text>
-            <TextInput style={StyleSheet.input} value={data.price} onChangeText={(text) => setData({ ...data, price: text })} />
+            <TextInput 
+              style={StyleSheet.input} 
+              value={data.price} 
+              onChangeText={(text) => setData({ ...data, price: text })} 
+              keyboardType="decimal-pad"
+            />
           </View>
         )}
         <View style={styles.formControl}>
